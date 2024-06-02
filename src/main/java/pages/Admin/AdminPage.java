@@ -34,7 +34,7 @@ public class AdminPage {
     By  stakeholder  = By.xpath("(//span[@class='mat-option-text'])[1]");
     By  mobile  = By.xpath("//input[@id='mat-input-7']");
     By designationDrop = By.xpath("//div[@id='mat-select-value-17']");
-//    By designation = By.xpath("(//div[@class='ng-star-inserted'])[4]");
+    By designation = By.xpath("(//div[@class='ng-star-inserted'])[4]");
 //    By disabilityDrop = By.xpath("//div[@id='mat-select-value-19']");
     By disability = By.xpath("//mat-select[@id='mat-select-18']");
 
