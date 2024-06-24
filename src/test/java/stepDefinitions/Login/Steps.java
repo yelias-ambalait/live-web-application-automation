@@ -12,7 +12,11 @@ import org.testng.Assert;
 import pages.Admin.AdminPage;
 import utils.ContextSetup;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.time.Duration;
+import java.util.Properties;
 import java.util.Set;
 
 public class Steps {
@@ -20,11 +24,19 @@ public class Steps {
     public WebDriver driver;
     ContextSetup contextSetup;
     AdminPage adminPage;
+    Properties properties;
 
-    public Steps(ContextSetup contextSetup) {
+    public Steps(ContextSetup contextSetup) throws FileNotFoundException {
         this.contextSetup = contextSetup;
         this.adminPage = contextSetup.pageObjectManager.getAdminPage();
         this.driver = adminPage.driver;
+        properties = new Properties();
+
+        try {
+            properties.load(new FileInputStream("global.properties"));
+        } catch (IOException e){
+            System.out.println(e.getMessage());
+        }
     }
 
     @Given("Signin form is displayed")
@@ -36,11 +48,14 @@ public class Steps {
     @When("enter username and password")
     public void ValidCredentials() {
 
+        String username = properties.getProperty("username");
+        String password = properties.getProperty("password");
+
         Assert.assertTrue(adminPage.getUsername().isDisplayed());
-        adminPage.getUsername().sendKeys("qa");
+        adminPage.getUsername().sendKeys(username);
 
         Assert.assertTrue(adminPage.getPassword().isDisplayed());
-        adminPage.getPassword().sendKeys("123");
+        adminPage.getPassword().sendKeys(password);
 
     }
     @When("Click on the Signin button")
